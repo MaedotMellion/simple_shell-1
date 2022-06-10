@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * print_f - writes the string str to stdout
+ * _printf - writes the string str to stdout
  * @str: The string to print
  * Return: returns nothing
  */

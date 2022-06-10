@@ -1,75 +1,36 @@
 #include "shell.h"
 
-int main(int argc, char **argv)
+/**
+ * main - prints args
+ * Return: void
+*/
+
+int main(void)
 {
-    char *cmd;
+    char *buffer;
+    size_t l = 1024;
+    char *readline;
 
-    do
+    buffer = malloc(sizeof(size_t) * l);
+
+    while(1)
     {
-        print_prompt1();
-        cmd = read_cmd();
+	print_prompt1();
+        readline = (char *) getline(&buffer, &l, stdin);
 
-        if(!cmd)
-            exit(EXIT_SUCCESS);
+        printf("%s", buffer);
 
-        if(cmd[0] == '\0' || str_cmp(cmd, "\n") == 0)
+        if(readline == 0)
         {
-            free(cmd);
-            continue;
+            free(readline);
+         break;
         }
 
-        if(str_cmp(cmd, "exit\n") == 0)
+        if(str_cmp(buffer, "exit\n") == 0)
         {
-            free(cmd);
+            free(buffer);
             break;
         }
-
-        _printf(cmd);
-
-    } while (1);
-
-    exit(EXIT_SUCCESS);
-}
-
-char *read_cmd(void)
-{
-    char buf[1024], ptrlen = 0;
-    char *ptr = NULL,  *ptr2 = NULL;
-    unsigned int buflen;
-
-    while(fgets(buf, 1024, stdin))
-    {
-        buflen = _strlen(buf);
-
-        if(!ptr)
-            ptr = malloc(buflen + 1);
-        else
-        {
-            ptr2 = realloc(ptr, ptrlen + buflen + 1);
-            if(ptr2)
-                ptr = ptr2;
-            else
-            {
-                free(ptr);
-                ptr = NULL;
-            }
-        }
-        if(!ptr)
-        {
-            _printf("error: failed to alloc buffer\n");
-            return NULL;
-        }
-        _strcpy(ptr + ptrlen, buf);
-        if(buf[buflen-1] == '\n')
-        {
-            if(buflen == 1 || buf[buflen-2] != '\\')
-                return (ptr);
-            ptr[ptrlen + buflen - 2] = '\0';
-            buflen -= 2;
-            print_prompt2();
-        }
-
-        ptrlen += buflen;
     }
-    return (ptr);
+    return (0);
 }

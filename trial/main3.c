@@ -5,7 +5,7 @@
 int main(int argc, char **argv)
 {
     char *cmd;
-
+    initsh();
     do
     {
         print_prompt1();
@@ -49,10 +49,23 @@ char *read_cmd(void)
         {
             ptr = malloc(buflen+1);
         }
+	else
+        {
+            ptr2 = realloc(ptr, ptrlen+buflen+1);
 
+            if(ptr2)
+            {
+                ptr = ptr2;
+            }
+            else
+            {
+                free(ptr);
+                ptr = NULL;
+            }
+        }
         if(!ptr)
         {
-            printf("error: failed to alloc buffer:\n");
+            _printf("error: failed to alloc buffer:\n");
             return NULL;
         }
         _strcpy(ptr+ptrlen, buf);

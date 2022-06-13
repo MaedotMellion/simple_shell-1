@@ -34,7 +34,7 @@ int _putchar(char c)
  * Return: returns the length of the string
  */
 
-unsigned int _strlen(char *str)
+int _strlen(char *str)
 {
     unsigned int length;
 	while (*str != '\0')

@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  *test_signal- checks if in interactive mode
- *@m: the signal number 
+ *@m: the signal number
  *Return: void
  */
 void test_signal(int m)

@@ -13,7 +13,7 @@ void initsh(void)
 
 	while (*p2)
 	{
-		*eq = strchr(*p2, '=');
+		eq = strchr(*p2, '=');
 		if (eq)
 		{
 			len = eq - (*p2);

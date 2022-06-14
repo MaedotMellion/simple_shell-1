@@ -3,9 +3,9 @@
 
 struct token_s
 {
-    struct source_s *src;       /* source of input */
-    int    text_len;            /* length of token text */
-    char   *text;               /* token text */
+	struct source_s *src;       /* source of input */
+	int    text_len;            /* length of token text */
+	char   *text;               /* token text */
 };
 
 /* the special EOF token, which indicates the end of input */

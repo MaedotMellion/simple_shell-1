@@ -1,6 +1,16 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
 #include "shell.h"
 #include "scanner.h"
 #include "source.h"
+
+/* special token to indicate end of input */
+struct token_s eof_token =
+{
+    .text_len = 0,
+};
 
 /**
  * add_to_buf - adds a single character to the token buffer
@@ -84,7 +94,7 @@ void free_token(struct token_s *tok)
 struct token_s *tokenize(struct source_s *src)
 {
 	int  endloop = 0;
-	cha nc;
+	char nc;
 	struct token_s *tok;
 
 	if (!src || !src->buffer || !src->bufsize)

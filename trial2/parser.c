@@ -12,19 +12,18 @@
 
 struct node_s *parse_simple_command(struct token_s *tok)
 {
-	struct node_s *cmd, *src, *word;
 
 	if (!tok)
 	{
 		return (NULL);
 	}
-	cmd = new_node(NODE_COMMAND);
+	struct node_s *cmd = new_node(NODE_COMMAND);
 	if (!cmd)
 	{
 		free_token(tok);
 		return (NULL);
 	}
-	src = tok->src;
+	struct source_s *src = tok->src;
 	do {
 		if (tok->text[0] == '\n')
 		{
@@ -32,7 +31,7 @@ struct node_s *parse_simple_command(struct token_s *tok)
 			break;
 		}
 
-		word = new_node(NODE_VAR);
+		struct node_s *word = new_node(NODE_VAR);
 		if (!word)
 		{
 			free_node_tree(cmd);

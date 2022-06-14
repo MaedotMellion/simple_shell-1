@@ -14,12 +14,6 @@ char *tok_buf = NULL;
 int   tok_bufsize  = 0;
 int   tok_bufindex = -1;
 
-/* special token to indicate end of input */
-struct token_s eof_token =
-{
-    .text_len = 0,
-};
-
 struct token_s
 {
 	struct source_s *src;

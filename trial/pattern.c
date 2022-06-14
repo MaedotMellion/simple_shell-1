@@ -21,32 +21,32 @@
  */
 int has_glob_chars(char *p, size_t len)
 {
-    char *p2 = p+len;
-    char ob = 0, cb = 0;    /* count of opening and closing brackets */
-    while(p < p2 && *p)
-    {
-        switch(*p)
-        {
-            case '*':
-            case '?':
-                return 1;
+	char *p2 = p + len;
+	char ob = 0, cb = 0;    /* count of opening and closing brackets */
+	while(p < p2 && *p)
+	{
+		switch(*p)
+		{
+			case '*':
+			case '?':
+			return (1);
+			
+			case '[':
+			ob++;
+			break;
                 
-            case '[':
-                ob++;
-                break;
-                
-            case ']':
-                cb++;
-                break;
-        }
-        p++;
-    }
+			case ']':
+			cb++;
+			break;
+		}
+		p++;
+	}
     /* do we have a matching number of opening and closing brackets? */
-    if(ob && ob == cb)
-    {
-        return 1;
-    }
-    return 0;
+	if(ob && ob == cb)
+	{
+		return (1);
+	}
+	return (0);
 }
 
 
@@ -59,43 +59,45 @@ int has_glob_chars(char *p, size_t len)
  */
 int match_prefix(char *pattern, char *str, int longest)
 {
-    if(!pattern || !str)
-    {
-        return 0;
-    }
-    char *s = str+1;
-    char  c = *s;
-    char *smatch = NULL;
-    char *lmatch = NULL;
-    while(c)
-    {
-        *s = '\0';
-        if(fnmatch(pattern, str, 0) == 0)
-        {
-            if(!smatch)
-            {
-                if(!longest)
-                {
-                    *s = c;
-                    return s-str;
-                }
-                smatch = s;
-            }
-            lmatch = s;
-        }
-        *s = c;
-        c = *(++s);
-    }
+	if(!pattern || !str)
+	{
+		return (0);
+	}
+
+	char *s = str + 1;
+	char  c = *s;
+	char *smatch = NULL;
+	char *lmatch = NULL;
+
+	while(c)
+	{
+		*s = '\0';
+		if(fnmatch(pattern, str, 0) == 0)
+		{
+			if(!smatch)
+			{
+				if(!longest)
+				{
+					*s = c;
+					return (s - str);
+				}
+				smatch = s;
+			}
+			lmatch = s;
+		}
+		*s = c;
+		c = *(++s);
+	}
     /* check the result of the comparison */
-    if(lmatch)
-    {
-        return lmatch-str;
-    }
-    if(smatch)
-    {
-        return smatch-str;
-    }
-    return 0;
+	if(lmatch)
+	{
+		return (lmatch - str);
+	}
+	if(smatch)
+	{
+		return (smatch - str);
+	}
+	return (0);
 }
 
 
@@ -107,22 +109,24 @@ int match_prefix(char *pattern, char *str, int longest)
  */
 int match_suffix(char *pattern, char *str, int longest)
 {
-    if(!pattern || !str)
-    {
-        return 0;
-    }
-    char *s = str+strlen(str)-1;
-    char *smatch = NULL;
-    char *lmatch = NULL;
-    while(s > str)
-    {
-        if(fnmatch(pattern, str, 0) == 0)
+	if(!pattern || !str)
+	{
+		return (0);
+	}
+	
+	char *s = str + strlen(str) - 1;
+	char *smatch = NULL;
+	char *lmatch = NULL;
+
+	while(s > str)
+	{
+		if(fnmatch(pattern, str, 0) == 0)
         {
             if(!smatch)
             {
                 if(!longest)
                 {
-                    return s-str;
+                    return (s - str);
                 }
                 smatch = s;
             }
@@ -133,13 +137,13 @@ int match_suffix(char *pattern, char *str, int longest)
     /* check the result of the comparison */
     if(lmatch)
     {
-        return lmatch-str;
+        return (lmatch - str);
     }
     if(smatch)
     {
-        return smatch-str;
+        return (smatch - str);
     }
-    return 0;
+    return (0);
 }
 
 
@@ -158,7 +162,7 @@ char **get_filename_matches(char *pattern, glob_t *matches)
 
     if(!pattern)
     {
-        return NULL;
+        return (NULL);
     }
 
     /* perform the match */
@@ -168,8 +172,8 @@ char **get_filename_matches(char *pattern, glob_t *matches)
     if(res != 0)
     {
         globfree(matches);
-        return NULL;
+        return (NULL);
     }
 
-    return matches->gl_pathv;
+    return (matches->gl_pathv);
 }

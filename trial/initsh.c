@@ -5,39 +5,40 @@ extern char **environ;
 
 void initsh(void)
 {
-    init_symtab();
+	char **p2 = environ,  *eq;
+	int len, name;
+	struct symtab_entry_s *entry;
 
-    struct symtab_entry_s *entry;
-    char **p2 = environ;
+	init_symtab();
 
-    while(*p2)
-    {
-        char *eq = strchr(*p2, '=');
-        if(eq)
-        {
-            int len = eq-(*p2);
-            char name[len+1];
+	while (*p2)
+	{
+		*eq = strchr(*p2, '=');
+		if (eq)
+		{
+			len = eq - (*p2);
+			name[len + 1];
 
-            strncpy(name, *p2, len);
-            name[len] = '\0';
-            entry = add_to_symtab(name);
+			strncpy(name, *p2, len);
+			name[len] = '\0';
+			entry = add_to_symtab(name);
 
-            if(entry)
-            {
-                symtab_entry_setval(entry, eq+1);
-                entry->flags |= FLAG_EXPORT;
-            }
-        }
-        else
-        {
-            entry = add_to_symtab(*p2);
-        }
-        p2++;
-    }
+			if (entry)
+			{
+				symtab_entry_setval(entry, eq + 1);
+				entry->flags |= FLAG_EXPORT;
+			}
+		}
+		else
+		{
+			entry = add_to_symtab(*p2);
+		}
+		p2++;
+	}
 
-    entry = add_to_symtab("PS1");
-    symtab_entry_setval(entry, "$ ");
+	entry = add_to_symtab("PS1");
+	symtab_entry_setval(entry, "$ ");
 
-    entry = add_to_symtab("PS2");
-    symtab_entry_setval(entry, "> ");
+	entry = add_to_symtab("PS2");
+	symtab_entry_setval(entry, "> ");
 }

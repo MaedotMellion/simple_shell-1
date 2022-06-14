@@ -6,13 +6,13 @@
  * Return: returns nothing
  */
 
-void _printf (char *str)
+void _printf(char *str)
 {
-    while (*str != '\0')
-    {
-        _putchar(*str);
-        str++;
-    }
+	while (*str != '\0')
+	{
+		_putchar (*str);
+		str++;
+	}
 }
 
 /**
@@ -36,14 +36,15 @@ int _putchar(char c)
 
 int _strlen(char *str)
 {
-    unsigned int length;
-	while (*str != '\0')
-    {
-        length++;
-        str++;
-    }
+	unsigned int length;
 
-    return (length);
+	while (*str != '\0')
+	{
+		length++;
+		str++;
+	}
+
+	return (length);
 }
 
 /**
@@ -53,15 +54,15 @@ int _strlen(char *str)
  * Return: returns nothing
  */
 
-void _strcpy (char *str_dest, char *str_src)
+void _strcpy(char *str_dest, char *str_src)
 {
 	while (*str_src != '\0')
-    {
-        *str_dest = *str_src;
-        str_dest++;
-        str_src++;
-    }
-    *str_dest = '\0';
+	{
+		*str_dest = *str_src;
+		str_dest++;
+		str_src++;
+	}
+	*str_dest = '\0';
 }
 
 /**
@@ -73,27 +74,27 @@ void _strcpy (char *str_dest, char *str_src)
  *        -1 if s_one < s_two
  */
 
-int str_cmp (char *s_one, char *s_two)
+int str_cmp(char *s_one, char *s_two)
 {
-    int notEqual = 0, isGreat = 0;
+	int notEqual = 0, isGreat = 0;
 
-    while (*s_one != '\0' || *s_two != '\0')
-    {
-        if (*s_one != *s_two)
-        {
-            notEqual = 1;
+	while (*s_one != '\0' || *s_two != '\0')
+	{
+		if (*s_one != *s_two)
+		{
+			notEqual = 1;
 
-            if (*s_one > *s_two)
-                isGreat = 1;
-            break;
-        }
-        s_one++;
-        s_two++;
-    }
-    if (notEqual && isGreat)
-        return (1);
-    else if (notEqual && !isGreat)
-        return (-1);
-    else
-        return (0);
+			if (*s_one > *s_two)
+				isGreat = 1;
+			break;
+		}
+		s_one++;
+		s_two++;
+	}
+	if (notEqual && isGreat)
+		return (1);
+	else if (notEqual && !isGreat)
+		return (-1);
+	else
+		return (0);
 }

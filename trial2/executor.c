@@ -17,7 +17,7 @@
 
 char *search_path(char *file)
 {
-	char *PATH = getenv("PATH"), *p = PATH, *p2, path[];
+	char *PATH = getenv("PATH"), *p = PATH, *p2;
 	int  plen, alen;
 	struct stat st;
 
@@ -30,12 +30,12 @@ char *search_path(char *file)
 		if (!plen)
 			plen = 1;
 		alen = _strlen(file);
-		path[plen + 1 + alen + 1];
-		_strncpy(path, p, p2 - p);
+		char path[plen + 1 + alen + 1];
+		strncpy(path, p, p2 - p);
 		path[p2 - p] = '\0';
 		if (p2[-1] != '/')
 			strcat(path, "/");
-		_strcat(path, file);
+		strcat(path, file);
 		if (stat(path, &st) == 0)
 		{
 			if (!S_ISREG(st.st_mode))
@@ -118,9 +118,9 @@ static inline void free_argv(int argc, char **argv)
 int do_simple_command(struct node_s *node)
 {
 	struct node_s *child;
-	int i = 0, status = 0, int argc = 0;
-	char *argv[max_args + 1], *str;
+	int i = 0, status = 0, argc = 0;
 	long max_args = 255;
+	char *argv[max_args + 1], *str;
 	pid_t child_pid = 0;
 
 	if (!node)
@@ -143,15 +143,7 @@ int do_simple_command(struct node_s *node)
 		child = child->next_sibling;
 	}
 	argv[argc] = NULL;
-	for ( ; i < builtins_count; i++)
-	{
-		if (str_cmp(argv[0], builtins[i].name) == 0)
-		{
-			builtins[i].func(argc, argv);
-			free_argv(argc, argv);
-			return (1);
-		}
-	}
+
 	child_pid = fork();
 	if (child_pid == 0)
 	{

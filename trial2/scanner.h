@@ -10,9 +10,7 @@
  *              process
  */
 
-char *tok_buf = NULL;
-int   tok_bufsize  = 0;
-int   tok_bufindex = -1;
+
 
 struct token_s
 {
